@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Local Messenger</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      width: 350px;
+      height: 600px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #4a90e2, #007aff);
+      color: white;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .messages {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      background: #f0f2f5;
+    }
+
+    .message {
+      padding: 8px 12px;
+      background: #e1f5fe;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      max-width: 75%;
+      word-wrap: break-word;
+      position: relative;
+    }
+
+    .message.user {
+      background: #dcf8c6;
+      align-self: flex-end;
+    }
+
+    .input-area {
+      display: flex;
+      padding: 12px;
+      background: #ffffff;
+      border-top: 1px solid #ddd;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 14px;
+    }
+
+    button {
+      margin-left: 8px;
+      padding: 0 16px;
+      background: linear-gradient(135deg, #4a90e2, #007aff);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+@keyframes background{
+  0%{
+    background-color: #007aff;
+  }
+  50%{
+    background-color: aqua;
+  }
+  100%{
+    background-color: #007aff;
+  }
+}
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="header">💬 Local Messenger</div>
+    <div class="messages" id="messages" aria-live="polite"></div>
+    <form class="input-area" id="chatForm">
+      <input type="text" id="messageInput" placeholder="Yozing..." aria-label="Message"/>
+      <button type="submit" id="sendBtn" disabled>Yuborish</button>
+    </form>
+  </div>
+  <div class="h" id="h">
+    <h1 id="h"></h1>
+  </div>
+
+  <script>
+    alert("birinchi marta ochilsa, xabarlar saqlanadi. keyin ochilganda saqlangan xabarlar ko'rinadi"); 
+    const messagesEl = document.getElementById("messages");
+    const messageInput = document.getElementById("messageInput");
+    const chatForm = document.getElementById("chatForm");
+    const sendBtn = document.getElementById("sendBtn");
+
+    function saveMessages() {
+      localStorage.setItem("messages", messagesEl.innerHTML);
+    }
+
+    function loadMessages() {
+      const saved = localStorage.getItem("messages");
+      if (saved) {
+        messagesEl.innerHTML = saved;
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+    }
+
+    chatForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const msg = messageInput.value.trim();
+      if (!msg) return;
+
+      const div = document.createElement("div");
+      div.className = "message user";
+      div.textContent = msg;
+      messagesEl.appendChild(div);
+      messageInput.value = "";
+      sendBtn.disabled = true;
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      saveMessages();
+
+      // Simulated reply
+      setTimeout(() => {
+        const reply = document.createElement("div");
+        reply.className = "message";
+        reply.textContent = getAutoReply(msg);
+        messagesEl.appendChild(reply);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+        saveMessages();
+      }, 800);
+    });
+
+    messageInput.addEventListener("input", () => {
+      sendBtn.disabled = messageInput.value.trim() === "";
+    });
+
+    function getAutoReply(input) {
+      const text = input.toLowerCase();
+      if (text.includes("hello") || text.includes("salom")) return "Salom! Qandaysiz?";
+      if (text.includes("qalesan") || text.includes("qalaysan?")) return "Yaxshi, rahmat. Sizchi?";
+      if (text.includes("ajoyib")) return "Menda ham ajoyib! Yana yozavering, dardlaringizni yozing....";
+      if(text.includes("Rahmat!") || text.includes("rahmat")) return "Arzimaydi!"
+      return "Sizga sabr tilayman,tezroq qutuling... Yana yozavering";
+    }
+
+    // Load saved mes
+    loadMessages()
+  </script>
+</body>
+</html>

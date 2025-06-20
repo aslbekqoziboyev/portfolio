@@ -1,0 +1,105 @@
+a{
+    text-decoration: none;
+}
+.header{
+    background: linear-gradient( rgb(11, 137, 234), lime);
+    background-color: pink;
+    border-radius: 12px;
+    text-indent: 12px;
+    top: 0px;
+    padding: 20px;
+    text-align: center;
+}
+.links{
+    background: radial-gradient(circle, red, yellow, green);
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+    height: 20px;
+}
+.links a{
+    color: black;
+    margin-left: 15px;
+}
+.links a:hover{
+    color: rgb(21, 246, 111);
+    border: 1px groove lime;
+    background-color: chocolate;
+    text-indent: 5px;
+    padding: 0px 2px 1px;
+    text-decoration: double;
+}
+body{
+    background: conic-gradient(red, yellow, green, blue);
+    text-align: center;
+}
+.aboutme{
+    border: 5px groove transparent;
+    text-align: center;
+    border-image: linear-gradient(to left, rgb(0, 255, 106), rgb(247, 5, 243), rgb(0, 213, 255)) 1;
+    border-radius: 15px;
+    margin-top: 12px;
+}
+footer{
+    text-align: center;
+    
+}
+input{
+     background-color: limegreen;
+     color: rgb(9, 97, 248);
+    border-radius: 8px;
+    text-indent: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+textarea{
+    background-color: limegreen;
+    color-scheme: dark light;
+    color: rgb(9, 97, 248);
+    border-radius: 12px;
+    text-indent: 12px;
+    text-rendering: 90px;
+}
+#img{
+    width: 200px;
+    height: 200px;
+}
+#im{
+    width: 200px;
+    height: 250px;
+}
+#i{
+    width: 200px;
+}
+.k{
+    border: 5px groove transparent;
+    border-image: linear-gradient(to right, red, yellow, lime) 1;
+    margin-top: 12px;
+    text-align: center;
+}
+.card{
+    text-align: center;
+    border: 3px groove transparent;
+    border-image: conic-gradient(red, yellow, lime, yellowgreen) 1;
+    margin-top: 12px;
+}
+@keyframes soya{
+    0%{
+        color: antiquewhite;
+        background-color: black;
+        border: 1px solid transparent;
+        border-image: linear-gradient(to right, red, yellow, lime, pink) 1;
+    }
+    50%{
+        color: antiquewhite;
+        background-color: black;
+        border: 1px solid transparent;
+        border-image: linear-gradient(to left, green, lime, yellow, red) 1; 
+    }
+    100%{
+        color: antiquewhite;
+        background-color: black;
+        border: 1px solid transparent;
+        border-image: linear-gradient(to right, red, yellow, lime, pink) 1;
+    }
+}
