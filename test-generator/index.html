@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Test Generator - O'quvchilar uchun</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-card">
+                <h1>🎓 AI Test Generator</h1>
+                <p>O'quvchilar uchun maxsus test tizimi</p>
+                <div class="input-group">
+                    <label for="user-name">Iltimos, ismingizni kiriting:</label>
+                    <input type="text" id="user-name" placeholder="Ismingiz...">
+                    <button id="name-submit" class="btn btn-primary">Davom etish</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Google Sign In Screen -->
+        <div id="signin-screen" class="screen">
+            <div class="signin-card">
+                <h2>Tizimga kirish</h2>
+                <p>Google orqali tizimga kiring</p>
+                <div id="g_id_onload"
+                     data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                     data-context="signin"
+                     data-ux_mode="popup"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-shape="rectangular"
+                     data-theme="outline"
+                     data-text="signin_with"
+                     data-size="large"
+                     data-logo_alignment="left">
+                </div>
+                <!-- Fallback button for demo -->
+                <button id="demo-signin" class="btn btn-google">
+                    <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" width="20">
+                    Google orqali kirish
+                </button>
+            </div>
+        </div>
+
+        <!-- Grade Selection Screen -->
+        <div id="grade-screen" class="screen">
+            <div class="selection-card">
+                <h2 id="greeting">Salom!</h2>
+                <p>Nechanchi sinf testini yechmoqchisiz?</p>
+                <select id="grade-select" class="select-input">
+                    <option value="">Sinfni tanlang...</option>
+                    <option value="1">1-sinf</option>
+                    <option value="2">2-sinf</option>
+                    <option value="3">3-sinf</option>
+                    <option value="4">4-sinf</option>
+                    <option value="5">5-sinf</option>
+                    <option value="6">6-sinf</option>
+                    <option value="7">7-sinf</option>
+                    <option value="8">8-sinf</option>
+                    <option value="9">9-sinf</option>
+                    <option value="10">10-sinf</option>
+                    <option value="11">11-sinf</option>
+                </select>
+                <button id="grade-submit" class="btn btn-primary" disabled>Davom etish</button>
+            </div>
+        </div>
+
+        <!-- Subject Selection Screen -->
+        <div id="subject-screen" class="screen">
+            <div class="selection-card">
+                <h2>Qaysi fan testini yechmoqchisiz?</h2>
+                <div class="subject-options">
+                    <button class="subject-btn" data-subject="ingliz">
+                        <span class="subject-icon">🇬🇧</span>
+                        <span>Ingliz tili</span>
+                    </button>
+                    <button class="subject-btn" data-subject="matematika">
+                        <span class="subject-icon">🔢</span>
+                        <span>Matematika</span>
+                    </button>
+                    <button class="subject-btn" data-subject="tarix" id="history-btn">
+                        <span class="subject-icon">📚</span>
+                        <span>Tarix</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen">
+            <div class="loading-card">
+                <div class="spinner"></div>
+                <h2>AI test tayyorlamoqda...</h2>
+                <p>Iltimos, kuting...</p>
+            </div>
+        </div>
+
+        <!-- Test Screen -->
+        <div id="test-screen" class="screen">
+            <div class="test-header">
+                <div class="test-info">
+                    <span id="question-counter">Savol 1/10</span>
+                    <span id="subject-display"></span>
+                </div>
+                <div class="timer">
+                    <span id="timer-display">10:00</span>
+                </div>
+            </div>
+            
+            <div class="test-content">
+                <div class="question-card">
+                    <h3 id="question-text">Savol yuklanmoqda...</h3>
+                    <div class="options">
+                        <button class="option-btn" data-option="A">
+                            <span class="option-letter">A</span>
+                            <span class="option-text"></span>
+                        </button>
+                        <button class="option-btn" data-option="B">
+                            <span class="option-letter">B</span>
+                            <span class="option-text"></span>
+                        </button>
+                        <button class="option-btn" data-option="C">
+                            <span class="option-letter">C</span>
+                            <span class="option-text"></span>
+                        </button>
+                        <button class="option-btn" data-option="D">
+                            <span class="option-letter">D</span>
+                            <span class="option-text"></span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="test-navigation">
+                    <button id="prev-question" class="btn btn-secondary" disabled>Oldingi</button>
+                    <button id="next-question" class="btn btn-primary" disabled>Keyingi</button>
+                    <button id="finish-test" class="btn btn-success" style="display: none;">Testni yakunlash</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-card">
+                <h2>🎉 Test yakunlandi!</h2>
+                <div class="score-display">
+                    <div class="score-circle">
+                        <span id="score-percentage">0%</span>
+                    </div>
+                    <div class="score-details">
+                        <p>To'g'ri javoblar soni: <span id="correct-count">0</span> / 10</p>
+                        <p>Umumiy ball: <span id="total-score">0</span>%</p>
+                    </div>
+                </div>
+                
+                <div class="results-breakdown">
+                    <h3>Batafsil natijalar:</h3>
+                    <div id="question-results"></div>
+                </div>
+                
+                <div class="results-actions">
+                    <button id="restart-test" class="btn btn-primary">Qayta boshlash</button>
+                    <button id="new-test" class="btn btn-secondary">Boshqa test</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Time Up Modal -->
+        <div id="time-up-modal" class="modal">
+            <div class="modal-content">
+                <h2>⏰ Vaqt tugadi!</h2>
+                <p>Test vaqti tugadi. Natijalaringizni ko'ring.</p>
+                <button id="view-results" class="btn btn-primary">Natijani ko'rish</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
